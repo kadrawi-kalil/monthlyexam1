@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Grade 11 Quiz – Data Science</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fa;
+        margin: 20px;
+        color: #333;
+      }
+      .quiz-container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        color: #0056b3;
+      }
+      .question {
+        margin: 20px 0;
+      }
+      .question p {
+        font-weight: bold;
+      }
+      button {
+        background: #0056b3;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      button:hover {
+        background: #004090;
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: green;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h2>Grade 11 Quiz – Concepts of Data Science</h2>
+
+      <label><b>Student Name:</b></label>
+      <input
+        type="text"
+        id="studentName"
+        placeholder="Enter your name"
+        style="width: 100%; padding: 8px; margin: 10px 0"
+      />
+
+      <form id="quizForm">
+        <div class="question">
+          <p>1. What is the main purpose of data science?</p>
+          <input type="radio" name="q1" value="b" /> Gain insights and solve
+          problems<br />
+          <input type="radio" name="q1" value="a" /> Decorate data<br />
+          <input type="radio" name="q1" value="c" /> Make random guesses<br />
+          <input type="radio" name="q1" value="d" /> Store data only<br />
+        </div>
+
+        <div class="question">
+          <p>2. Before 1970, data science was mainly based on:</p>
+          <input type="radio" name="q2" value="b" /> Statistics and early
+          analytics<br />
+          <input type="radio" name="q2" value="a" /> Internet<br />
+          <input type="radio" name="q2" value="c" /> Artificial Intelligence<br />
+          <input type="radio" name="q2" value="d" /> Big Data<br />
+        </div>
+
+        <div class="question">
+          <p>
+            3. Which decade saw the introduction of computers in data analysis?
+          </p>
+          <input type="radio" name="q3" value="b" /> 1970s–1980s<br />
+          <input type="radio" name="q3" value="a" /> 1960s<br />
+          <input type="radio" name="q3" value="c" /> 1990s<br />
+          <input type="radio" name="q3" value="d" /> 2000s<br />
+        </div>
+
+        <div class="question">
+          <p>4. What caused the “data explosion” in the 1990s?</p>
+          <input type="radio" name="q4" value="b" /> The internet<br />
+          <input type="radio" name="q4" value="a" /> The invention of cars<br />
+          <input type="radio" name="q4" value="c" /> The discovery of DNA<br />
+          <input type="radio" name="q4" value="d" /> Climate change<br />
+        </div>
+
+        <div class="question">
+          <p>
+            5. Which modern technology is strongly connected with data science
+            today?
+          </p>
+          <input type="radio" name="q5" value="a" /> Machine Learning and AI<br />
+          <input type="radio" name="q5" value="b" /> Typewriters<br />
+          <input type="radio" name="q5" value="c" /> Fax machines<br />
+          <input type="radio" name="q5" value="d" /> Candlelight<br />
+        </div>
+
+        <div class="question">
+          <p>6. Which stage of data analysis comes first?</p>
+          <input type="radio" name="q6" value="b" /> Data Collection<br />
+          <input type="radio" name="q6" value="a" /> Data Analysis<br />
+          <input type="radio" name="q6" value="c" /> Data Visualization<br />
+          <input type="radio" name="q6" value="d" /> Reporting<br />
+        </div>
+
+        <div class="question">
+          <p>7. What is the main benefit of data visualization?</p>
+          <input type="radio" name="q7" value="a" /> Make complex data more
+          understandable<br />
+          <input type="radio" name="q7" value="b" /> Increase data size<br />
+          <input type="radio" name="q7" value="c" /> Delete unnecessary data<br />
+          <input type="radio" name="q7" value="d" /> Hide information<br />
+        </div>
+
+        <div class="question">
+          <p>
+            8. Data-driven decision-making helps reduce guesswork. (True/False)
+          </p>
+          <input type="radio" name="q8" value="true" /> True<br />
+          <input type="radio" name="q8" value="false" /> False<br />
+        </div>
+
+        <div class="question">
+          <p>9. During the COVID-19 pandemic, data science was used to:</p>
+          <input type="radio" name="q9" value="b" /> Track and predict virus
+          spread<br />
+          <input type="radio" name="q9" value="a" /> Predict football results<br />
+          <input type="radio" name="q9" value="c" /> Paint artworks<br />
+          <input type="radio" name="q9" value="d" /> Build new cars<br />
+        </div>
+
+        <div class="question">
+          <p>
+            10. Which of these sectors uses data science for fraud detection?
+          </p>
+          <input type="radio" name="q10" value="finance" /> Finance<br />
+          <input type="radio" name="q10" value="health" /> Healthcare<br />
+          <input type="radio" name="q10" value="energy" /> Energy<br />
+          <input type="radio" name="q10" value="education" /> Education<br />
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+      </form>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      const answers = {
+        q1: "b",
+        q2: "b",
+        q3: "b",
+        q4: "b",
+        q5: "a",
+        q6: "b",
+        q7: "a",
+        q8: "true",
+        q9: "b",
+        q10: "finance",
+      };
+
+      function submitQuiz() {
+        const form = document.forms["quizForm"];
+        let score = 0;
+
+        for (let key in answers) {
+          let answer = form[key]?.value;
+          if (answer === answers[key]) {
+            score++;
+          }
+        }
+
+        const name = document.getElementById("studentName").value.trim();
+        if (!name) {
+          alert("Please enter your name.");
+          return;
+        }
+
+        document.getElementById("result").innerText =
+          name + ", your score is: " + score + "/10";
+
+        // Send result to Google Sheet
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwjBHQxlybAf2OV91Kt081ODiY-FX8rSwptkBk6W3qo-F84acMCsGwJvCaM_rg6KscA/execL",
+          {
+            method: "POST",
+            body: JSON.stringify({ name: name, score: score }),
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+          .then((res) => res.text())
+          .then((data) => console.log(data))
+          .catch((err) => console.error(err));
+      }
+    </script>
+  </body>
+</html>
