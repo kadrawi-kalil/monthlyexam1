@@ -1,212 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>Grade 11 Quiz – Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Monthly Exam — Grades 1 to 12</title>
     <style>
+      h1 {
+        color: #eb5325;
+        font-weight: 700;
+        font-size: 50px;
+      }
+      .survey {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 30px;
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+        text-align: center;
+      }
+
+      .survey h2 {
+        margin-top: 0;
+        font-size: 1.4rem;
+        color: #111827;
+      }
+
+      .survey p {
+        font-size: 1rem;
+        color: var(--muted);
+        margin: 18px 0 28px;
+        line-height: 1.6;
+      }
+
+      :root {
+        --bg: #f3f6fb;
+        --card: #ffffff;
+        --accent: #eb5325;
+        --accent-2: #06b6d4;
+        --muted: #6b7280;
+        --radius: 12px;
+        --gap: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
-        font-family: Arial, sans-serif;
-        background: #f4f7fa;
-        margin: 20px;
-        color: #333;
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: linear-gradient(180deg, var(--bg), #e9f0ff 200px);
+        min-height: 100vh;
+        padding: 36px;
+        color: #111827;
       }
-      .quiz-container {
-        max-width: 800px;
-        margin: auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-      h2 {
+
+      header {
+        max-width: 1100px;
+        margin: 0 auto 22px;
         text-align: center;
-        color: #0056b3;
       }
-      .question {
-        margin: 20px 0;
+      header h1 {
+        margin: 0 0 6px;
+        font-size: 1.5rem;
       }
-      .question p {
-        font-weight: bold;
+      header p {
+        margin: 0;
+        color: var(--muted);
       }
-      button {
-        background: #0056b3;
+
+      .grid-wrap {
+        max-width: 1100px;
+        margin: 20px auto 0;
+        display: grid;
+        gap: var(--gap);
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+
+      /* responsive columns */
+      @media (min-width: 520px) {
+        .grid-wrap {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 840px) {
+        .grid-wrap {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (min-width: 1200px) {
+        .grid-wrap {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        min-height: 170px;
+      }
+      .card:focus-within,
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(17, 24, 39, 0.12);
+      }
+
+      .grade-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(90deg, #eb4c25, var(--accent-2));
+        padding: 8px 12px;
+        border-radius: 999px;
+        width: fit-content;
+        font-size: 0.95rem;
+      }
+
+      .card h2 {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        flex: 1 1 auto;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: var(--accent);
         color: white;
-        border: none;
-        padding: 10px 15px;
-        margin-top: 20px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
+        transition: transform 0.12s ease, opacity 0.12s ease;
       }
-      button:hover {
-        background: #004090;
+      .btn:active {
+        transform: translateY(1px);
       }
-      .result {
-        margin-top: 20px;
-        font-size: 18px;
-        font-weight: bold;
-        color: green;
+      .btn.secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid rgba(37, 99, 235, 0.12);
+        box-shadow: none;
+        font-weight: 600;
+      }
+
+      /* small helper */
+      .note {
         text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 14px;
+      }
+
+      /* accessible focus ring */
+      a:focus {
+        outline: 3px solid rgba(37, 99, 235, 0.18);
+        outline-offset: 3px;
       }
     </style>
   </head>
   <body>
-    <div class="quiz-container">
-      <h2>Grade 11 Quiz – Concepts of Data Science</h2>
+    <header>
+      <h1>Monthly Exam — Grades 1 to 12</h1>
+      <p>
+        Select your grade and click <strong>Start Test</strong>. Each opens in a
+        new tab.
+      </p>
+    </header>
 
-      <label><b>Student Name:</b></label>
-      <input
-        type="text"
-        id="studentName"
-        placeholder="Enter your name"
-        style="width: 100%; padding: 8px; margin: 10px 0"
-      />
-
-      <form id="quizForm">
-        <div class="question">
-          <p>1. What is the main purpose of data science?</p>
-          <input type="radio" name="q1" value="b" /> Gain insights and solve
-          problems<br />
-          <input type="radio" name="q1" value="a" /> Decorate data<br />
-          <input type="radio" name="q1" value="c" /> Make random guesses<br />
-          <input type="radio" name="q1" value="d" /> Store data only<br />
-        </div>
-
-        <div class="question">
-          <p>2. Before 1970, data science was mainly based on:</p>
-          <input type="radio" name="q2" value="b" /> Statistics and early
-          analytics<br />
-          <input type="radio" name="q2" value="a" /> Internet<br />
-          <input type="radio" name="q2" value="c" /> Artificial Intelligence<br />
-          <input type="radio" name="q2" value="d" /> Big Data<br />
-        </div>
-
-        <div class="question">
-          <p>
-            3. Which decade saw the introduction of computers in data analysis?
-          </p>
-          <input type="radio" name="q3" value="b" /> 1970s–1980s<br />
-          <input type="radio" name="q3" value="a" /> 1960s<br />
-          <input type="radio" name="q3" value="c" /> 1990s<br />
-          <input type="radio" name="q3" value="d" /> 2000s<br />
-        </div>
-
-        <div class="question">
-          <p>4. What caused the “data explosion” in the 1990s?</p>
-          <input type="radio" name="q4" value="b" /> The internet<br />
-          <input type="radio" name="q4" value="a" /> The invention of cars<br />
-          <input type="radio" name="q4" value="c" /> The discovery of DNA<br />
-          <input type="radio" name="q4" value="d" /> Climate change<br />
-        </div>
-
-        <div class="question">
-          <p>
-            5. Which modern technology is strongly connected with data science
-            today?
-          </p>
-          <input type="radio" name="q5" value="a" /> Machine Learning and AI<br />
-          <input type="radio" name="q5" value="b" /> Typewriters<br />
-          <input type="radio" name="q5" value="c" /> Fax machines<br />
-          <input type="radio" name="q5" value="d" /> Candlelight<br />
-        </div>
-
-        <div class="question">
-          <p>6. Which stage of data analysis comes first?</p>
-          <input type="radio" name="q6" value="b" /> Data Collection<br />
-          <input type="radio" name="q6" value="a" /> Data Analysis<br />
-          <input type="radio" name="q6" value="c" /> Data Visualization<br />
-          <input type="radio" name="q6" value="d" /> Reporting<br />
-        </div>
-
-        <div class="question">
-          <p>7. What is the main benefit of data visualization?</p>
-          <input type="radio" name="q7" value="a" /> Make complex data more
-          understandable<br />
-          <input type="radio" name="q7" value="b" /> Increase data size<br />
-          <input type="radio" name="q7" value="c" /> Delete unnecessary data<br />
-          <input type="radio" name="q7" value="d" /> Hide information<br />
-        </div>
-
-        <div class="question">
-          <p>
-            8. Data-driven decision-making helps reduce guesswork. (True/False)
-          </p>
-          <input type="radio" name="q8" value="true" /> True<br />
-          <input type="radio" name="q8" value="false" /> False<br />
-        </div>
-
-        <div class="question">
-          <p>9. During the COVID-19 pandemic, data science was used to:</p>
-          <input type="radio" name="q9" value="b" /> Track and predict virus
-          spread<br />
-          <input type="radio" name="q9" value="a" /> Predict football results<br />
-          <input type="radio" name="q9" value="c" /> Paint artworks<br />
-          <input type="radio" name="q9" value="d" /> Build new cars<br />
-        </div>
-
-        <div class="question">
-          <p>
-            10. Which of these sectors uses data science for fraud detection?
-          </p>
-          <input type="radio" name="q10" value="finance" /> Finance<br />
-          <input type="radio" name="q10" value="health" /> Healthcare<br />
-          <input type="radio" name="q10" value="energy" /> Energy<br />
-          <input type="radio" name="q10" value="education" /> Education<br />
-        </div>
-
-        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
-      </form>
-
-      <div class="result" id="result"></div>
-    </div>
+    <main class="grid-wrap" id="grid" aria-live="polite">
+      <!-- Cards will be generated here by JavaScript -->
+    </main>
 
     <script>
-      const answers = {
-        q1: "b",
-        q2: "b",
-        q3: "b",
-        q4: "b",
-        q5: "a",
-        q6: "b",
-        q7: "a",
-        q8: "true",
-        q9: "b",
-        q10: "finance",
-      };
+      // ----- EDIT THIS: Put your 12 form URLs and unique codes here -----
+      const forms = [
+        { grade: 1, url: "", code: "G1" },
+        { grade: 2, url: "", code: "G2" },
+        { grade: 3, url: "", code: "G3" },
+        { grade: 4, url: "", code: "G4" },
+        { grade: 5, url: "", code: "G5" },
+        { grade: 6, url: "https://forms.gle/uHNGJNwUrTTtAquU7", code: "999" },
+        { grade: 7, url: "", code: "G7" },
+        { grade: 8, url: "", code: "G8" },
+        { grade: 9, url: "", code: "G9" },
+        { grade: 10, url: "", code: "G10" },
+        { grade: 11, url: "https://forms.gle/WCVM6A913LpxZ6M18", code: "888" },
+        { grade: 12, url: "https://forms.gle/oNTL3p2PMSH7k6ub6", code: "123" },
+      ];
 
-      function submitQuiz() {
-        const form = document.forms["quizForm"];
-        let score = 0;
+      const grid = document.getElementById("grid");
 
-        for (let key in answers) {
-          let answer = form[key]?.value;
-          if (answer === answers[key]) {
-            score++;
-          }
+      // Function to handle secret code per grade
+      function handleSecretCode(url, gradeCode) {
+        const input = prompt(
+          "🔐 Enter your grade secret code to start the exam:"
+        );
+        if (input === gradeCode) {
+          window.open(url, "_blank");
+        } else {
+          alert("❌ Wrong code. You cannot access this exam!");
         }
-
-        const name = document.getElementById("studentName").value.trim();
-        if (!name) {
-          alert("Please enter your name.");
-          return;
-        }
-
-        document.getElementById("result").innerText =
-          name + ", your score is: " + score + "/10";
-
-        // Send result to Google Sheet
-        fetch(
-          "https://script.google.com/macros/s/AKfycbwjBHQxlybAf2OV91Kt081ODiY-FX8rSwptkBk6W3qo-F84acMCsGwJvCaM_rg6KscA/execL",
-          {
-            method: "POST",
-            body: JSON.stringify({ name: name, score: score }),
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-          .then((res) => res.text())
-          .then((data) => console.log(data))
-          .catch((err) => console.error(err));
       }
+
+      // Create card element for each grade
+      forms.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.setAttribute("aria-label", `Grade ${item.grade} exam card`);
+
+        card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div class="grade-badge">Grade ${item.grade}</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Duration: 15 min</div>
+      </div>
+
+      <h2>Grade ${item.grade} — ICT Test</h2>
+      <p>Click the button below to open the exam for Grade ${item.grade}. Answers will be submitted on the form.</p>
+
+      <div class="actions" role="group" aria-label="Grade ${item.grade} actions">
+        <a class="btn start-btn" href="#">Start Exam ↗</a>
+        <a class="btn secondary start-btn" href="#">Open</a>
+      </div>
+    `;
+
+        // Attach click event to check secret code for this grade
+        card.querySelectorAll(".start-btn").forEach((btn) => {
+          if (item.url && item.url !== "") {
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              handleSecretCode(item.url, item.code);
+            });
+          } else {
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              alert(
+                "No exam link set for this grade. Edit the forms array in index.html to add the URL."
+              );
+            });
+          }
+        });
+
+        grid.appendChild(card);
+      });
     </script>
   </body>
 </html>
