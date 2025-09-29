@@ -1,0 +1,94 @@
+function createQuizForm() {
+  // Create the quiz
+  var form = FormApp.create('Grade 5 Quiz - Introduction to Multimedia')
+    .setIsQuiz(true)
+    .setTitle('Grade 5 Quiz – Introduction to Multimedia')
+    .setDescription('You have 10 minutes to complete this quiz. Each question is worth 1 point.');
+
+  // Add Student Name field
+  form.addTextItem()
+    .setTitle('Student Name')
+    .setRequired(true);
+
+  // Add Student ID / Class
+  form.addTextItem()
+    .setTitle('Student ID / Class')
+    .setRequired(false);
+
+  // Helper function to add multiple-choice question
+  function addMCQ(title, choices, correctIndex) {
+    var item = form.addMultipleChoiceItem();
+    item.setTitle(title)
+        .setChoices(choices.map(function(choice, i) {
+          return item.createChoice(choice, i === correctIndex);
+        }))
+        .setRequired(true);
+    item.setPoints(1);
+  }
+
+  // Questions
+  addMCQ(
+    "Q1. What do digital billboards commonly use to capture your attention?",
+    ["Text only", "Black and white photographs", "Moving images and bright colors", "Silent videos"],
+    2
+  );
+
+  addMCQ(
+    "Q2. How do interactive learning platforms like Khan Academy use multimedia to enhance learning?",
+    ["By using text only for all lessons", "By providing e-books only", "By combining videos, animations, and quizzes", "By offering audio lectures"],
+    2
+  );
+
+  addMCQ(
+    "Q3. What is one of the primary roles of a website designer in the multimedia field?",
+    ["Editing movie soundtracks", "Designing websites with text, images, and interactive elements", "Animating cartoon characters", "Writing scripts for TV shows"],
+    1
+  );
+
+  addMCQ(
+    "Q4. How has multimedia transformed the way we receive news?",
+    ["By using only printed newspapers", "By combining text articles with photos and videos on news platforms", "By broadcasting news only on the radio", "By providing news in text format only"],
+    1
+  );
+
+  addMCQ(
+    "Q5. Why is multimedia important in creating engaging social media content?",
+    ["It only allows text posts", "It limits content to images only", "It enables the use of images, videos, and text for better storytelling", "It restricts the use of audio in posts"],
+    2
+  );
+
+  addMCQ(
+    "Q6. Which of these is an example of multimedia in education?",
+    ["A math book without pictures", "A science video with animations and narration", "A printed dictionary", "A list of dates in history"],
+    1
+  );
+
+  addMCQ(
+    "Q7. What does the “multi” in multimedia mean?",
+    ["One type", "Many", "Few", "None"],
+    1
+  );
+
+  addMCQ(
+    "Q8. Which tool is commonly used to create multimedia presentations in school?",
+    ["Microsoft Word", "PowerPoint", "Excel", "Calculator"],
+    1
+  );
+
+  addMCQ(
+    "Q9. What is one advantage of using multimedia in advertisements?",
+    ["It makes ads harder to understand", "It attracts attention using sound, images, and motion", "It removes creativity", "It only shows text"],
+    1
+  );
+
+  addMCQ(
+    "Q10. Which of these is NOT an example of multimedia?",
+    ["A YouTube video", "A printed newspaper", "A music video", "An online photo gallery"],
+    1
+  );
+
+  // Return form URL
+  Logger.log('Form URL: ' + form.getEditUrl());
+  Logger.log('Quiz (student link): ' + form.getPublishedUrl());
+}
+
